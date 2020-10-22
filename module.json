@@ -11,6 +11,6 @@
 	"esmodules": ["swalt.js"],
 	"styles": ["/css/swalt.css"],
 	"url": "https://github.com/cbnathanael/sw5e-alternateCharacterSheet",
-	"manifest": "",
-	"download": ""
+	"manifest": "https://raw.githubusercontent.com/cbnathanael/sw5e-alternateCharacterSheet/master/module.json",
+	"download": "https://raw.githubusercontent.com/cbnathanael/sw5e-alternateCharacterSheet/master/sw5e-alternateCharacterSheet.zip"
 }
