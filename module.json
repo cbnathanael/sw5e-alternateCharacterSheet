@@ -1,0 +1,16 @@
+{
+	"name": "SW5eCharacterSheetUpgrade",
+	"title": "SW5e Character Sheet Upgrade",
+	"description": "Replaces the standard character sheet with one based off of Kakeman89s which is based off of Sky's D&D 5e sheet",
+	"version": "0.1",
+	"author": "Naate",
+	"minimumCoreVersion": "0.6.5",
+	"compatibleCoreVersion": "0.7.4",
+	"systems": ["sw5e"],
+	"minimumSystemVersion": "0.94",
+	"esmodules": ["swalt.js"],
+	"styles": ["/css/swalt.css"],
+	"url": "https://github.com/cbnathanael/sw5e-alternateCharacterSheet",
+	"manifest": "",
+	"download": ""
+}

@@ -1,0 +1,246 @@
+<form class="{{cssClass}} swalt-sheet" autocomplete="off">
+	{{!-- Sheet Header --}}
+	<header class="panel">
+		<img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+		<h1 class="character-name">
+			<input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'SW5E.Name' }}" />
+		</h1>
+		<div class="level-experience">
+			<div class="charlevel">
+				{{ localize "SW5E.Level" }} {{data.details.level}} {{classLabels}}
+			</div>
+			{{#unless disableExperience}}
+			<div class="experience">
+				<input name="data.details.xp.value" type="text" value="{{data.details.xp.value}}" data-dtype="Number"
+					placeholder="0" />
+				<span class="sep">/</span>
+				<span class="max">{{data.details.xp.max}}</span>
+			</div>
+			<div class="xpbar">
+				<span class="bar" style="width: {{data.details.xp.pct}}%"></span>
+			</div>
+			{{/unless}}
+		</div>
+		<div class="summary">
+			<input type="text" name="data.details.species" value="{{data.details.species}}"
+				placeholder="{{ localize 'SW5E.Species' }}" />
+			<input type="text" name="data.details.background" value="{{data.details.background}}"
+				placeholder="{{ localize 'SW5E.Background' }}" />
+			<input type="text" name="data.details.alignment" value="{{data.details.alignment}}"
+				placeholder="{{ localize 'SW5E.Alignment' }}" />
+			<div class="proficiency">
+				Proficiency {{numberFormat data.attributes.prof decimals=0 sign=true}}
+			</div>
+		</div>
+		{{!-- Header Attributes --}}
+		<div class="attributes">
+			{{!-- ARMOR CLASS --}}
+			<section>
+				<h1>{{ localize "SW5E.ArmorClass" }}</h1>
+				<div class="attribute-value">
+					<input class="ac-display" name="data.attributes.ac.value" type="text"
+						value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="10" />
+				</div>
+			</section>
+
+			{{!-- HIT POINTS --}}
+			<section>
+				<h1>Hit Points</h1>
+				<div class="attribute-value">
+					<input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+						data-dtype="Number" placeholder="10" class="value-number" />
+					<span class="value-separator">/</span>
+					<input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
+						data-dtype="Number" placeholder="10" class="value-number" />
+				</div>
+				<footer class="attribute-footer hit-points">
+					<input name="data.attributes.hp.temp" type="text" class="temphp" placeholder="+Temp"
+						value="{{data.attributes.hp.temp}}" data-dtype="{{data.attributes.hp.type}}" />
+					<input name="data.attributes.hp.tempmax" type="text" class="temphp" placeholder="+Max"
+						value="{{data.attributes.hp.tempmax}}" data-dtype="{{data.attributes.hp.type}}" />
+				</footer>
+			</section>
+
+			{{!-- HIT DICE / SHORT & LONG REST BUTTONS --}}
+			<section>
+				<h1>{{ localize "SW5E.HitDice" }}</h1>
+				<div class="attribute-value">
+					<span class="value-number">{{data.attributes.hd}}</span>
+					<span class="value-separator">/</span>
+					<span class="value-number">{{data.details.level}}</span>
+				</div>
+				<footer class="attribute-footer hit-dice">
+					<button type="button" class="rest short-rest">{{ localize "SW5E.RestS" }}</button>
+					<button type="button" class="rest long-rest">{{ localize "SW5E.RestL" }}</button>
+				</footer>
+			</section>
+
+			{{!-- INITIATIVE --}}
+			<section>
+				<h1>{{ localize "SW5E.Initiative" }}</h1>
+				<div class="attribute-value">
+					<span class="initiative">{{numberFormat data.attributes.init.total decimals=0 sign=true}}</span>
+				</div>
+				<footer class="attribute-footer initiative">
+					<span>{{ localize "SW5E.Modifier" }}</span>
+					<input name="data.attributes.init.value" type="text" placeholder="0" data-dtype="Number"
+						value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}" />
+				</footer>
+			</section>
+
+			{{!-- SPEED / MOVEMENT TYPES --}}
+			<section>
+				<h1>{{ localize "SW5E.Speed" }}</h1>
+				<div class="attribute-value">
+					<input name="data.attributes.speed.value" type="text" value="{{data.attributes.speed.value}}"
+						placeholder="0" />
+				</div>
+				<footer class="attribute-footer speed">
+					<input type="text" class="speed" name="data.attributes.speed.special"
+						value="{{data.attributes.speed.special}}" placeholder="{{ localize 'SW5E.SpeedSpecial' }}" />
+				</footer>
+			</section>
+
+
+		</div>
+
+
+	</header>
+	{{!-- PC Sheet Navigation --}}
+	<nav class="sheet-navigation root-tabs" data-group="primary">
+		<button class="item active" data-tab="attributes">Core</button>
+		<button class="item" data-tab="inventory">{{ localize "SW5E.Inventory" }}</button>
+		<button class="item" data-tab="features">{{ localize "SW5E.Features" }}</button>
+		<button class="item" data-tab="powerbook">{{ localize "SW5E.Powerbook" }}</button>
+		<button class="item" data-tab="biography">{{ localize "SW5E.Biography" }}</button>
+		<button class="item" data-tab="notes">Notes</button>
+	</nav>
+	{{!-- PC Sheet Body --}}
+	<section class="sheet-body">
+		{{!-- Core Tab --}}
+		<section class="tab attributes core" data-group="primary" data-tab="attributes">
+			{{!-- Ability Scores, Skills, & Traits --}}
+			<section class="panel abilities">
+				{{!-- Ability Scores --}}
+				<section class="scores">
+					<h1>Ability Scores</h1>
+					<ol>
+						{{#each data.abilities as |ability id|}}
+						<li class="ability {{#if ability.proficient}}proficient{{/if}}" data-ability="{{id}}">
+							<h2 class="ability-name rollable">{{ability.label}}</h4>
+								<input class="ability-score" name="data.abilities.{{id}}.value" type="text"
+									value="{{ability.value}}" data-dtype="Number" placeholder="10" />
+								<div class="ability-modifiers">
+									<span class="ability-mod"
+										title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+									<input type="hidden" name="data.abilities.{{id}}.proficient"
+										value="{{ability.proficient}}" data-dtype="Number" />
+									<button class="proficiency-toggle ability-proficiency"
+										title="Proficiency">{{{ability.icon}}}</button>
+									<span class="ability-save"
+										title="Saving Throw">{{numberFormat ability.save decimals=0 sign=true}}</span>
+								</div>
+						</li>
+						{{/each}}
+					</ol>
+				</section>
+				{{!-- Skills --}}
+				<section class="skills">
+					<h1>Skills</h1>
+					<ol>
+						{{#each data.skills as |skill s|}}
+						<li class="skill {{#if skill.value}}proficient{{/if}}" data-skill="{{s}}">
+							<input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}"
+								data-dtype="Number" />
+							<button class="proficiency-toggle skill-proficiency"
+								title="{{skill.hover}}">{{{skill.icon}}}</button>
+							<span class="skill-name rollable">{{skill.label}}</span>
+							<span class="skill-ability">{{skill.ability}}</span>
+							<span class="skill-mod">{{numberFormat skill.total decimals=0 sign=true}}</span>
+							{{!-- <input class="skill-bonus" name="data.skills.{{s}}.bonus" type="text" value="{{numberFormat skill.bonus decimals=0 sign=true}}" data-dtype="Number" placeholder="0" title="Misc. Modifier"/> --}}
+							{{!-- <span class="skill-passive">({{skill.passive}})</span> --}}
+						</li>
+						{{/each}}
+					</ol>
+				</section>
+			</section>
+			<section class="panel traits-resources">
+				<nav class="core-tabs tab-list" data-group="coreattributes">
+					<button type="button" class="item active" data-tab="traits">Traits</button>
+					<button type="button" class="item" data-tab="resources">Resources</button>
+				</nav>
+				<div class="tab core-traits active" data-group="coreattributes" data-tab="traits">
+					{{> "modules/swalt/templates/parts/swalt-traits.html"}}
+				</div>
+				<div class="tab core-traits" data-group="coreattributes" data-tab="resources">
+					{{> "modules/swalt/templates/parts/swalt-resources.html"}}
+				</div>
+			</section>
+
+			
+		</section>
+		{{!-- Inventory Tab --}}
+		<div class="tab inventory" data-group="primary" data-tab="inventory">
+			{{> "modules/swalt/templates/parts/swalt-inventory.html" sections=inventory}}
+		</div>
+		{{!-- Features Tab --}}
+		<div class="tab features" data-group="primary" data-tab="features">
+			{{> "modules/swalt/templates/parts/swalt-features.html" sections=features}}
+		</div>
+		{{!-- Powerbook Tab --}}
+		<div class="tab powerbook" data-group="primary" data-tab="powerbook">
+			{{> "modules/swalt/templates/parts/swalt-powerbook.html"}}
+		</div>
+		{{!-- Biography Tab --}}
+		<div class="tab biography" data-group="primary" data-tab="biography">
+			<div class="additional-info">
+				<div class="section-titles biopage">Description</div>
+				{{editor content=data.details.description.value target="data.details.description.value" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">Personality Traits</div>
+				{{editor content=data.details.trait target="data.details.trait" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">Ideals</div>
+				{{editor content=data.details.ideal target="data.details.ideal" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">Bonds</div>
+				{{editor content=data.details.bond target="data.details.bond" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">flaws</div>
+				{{editor content=data.details.flaw target="data.details.flaw" button=true owner=owner editable=editable}}
+			</div>
+			<div class="background">
+				<div class="section-titles">Background</div>
+				{{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+			</div>
+		</div>
+		{{!-- Notes Tab --}}
+		<div class="tab biography" data-group="primary" data-tab="notes">
+			<div class="background">
+				<div class="section-titles">
+					<input type="text" name="data.details.notesname" value="{{data.details.notesname}}"
+						placeholder="Personal Journal" />
+				</div>
+				{{editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+			</div>
+			<div class="additional-notes">
+				<div class="section-titles biopage">
+					<input type="text" name="data.details.notes1name" value="{{data.details.notes1name}}"
+						placeholder="Additional Notes" />
+				</div>
+				{{editor content=data.details.notes1.value target="data.details.notes1.value" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">
+					<input type="text" name="data.details.notes2name" value="{{data.details.notes2name}}"
+						placeholder="Additional Notes" />
+				</div>
+				{{editor content=data.details.notes2.value target="data.details.notes2.value" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">
+					<input type="text" name="data.details.notes3name" value="{{data.details.notes3name}}"
+						placeholder="Additional Notes" />
+				</div>
+				{{editor content=data.details.notes3.value target="data.details.notes3.value" button=true owner=owner editable=editable}}
+				<div class="section-titles biopage">
+					<input type="text" name="data.details.notes4name" value="{{data.details.notes4name}}"
+						placeholder="Additional Notes" />
+				</div>
+				{{editor content=data.details.notes4.value target="data.details.notes4.value" button=true owner=owner editable=editable}}
+			</div>
+		</div>
+	</section>
+</form>

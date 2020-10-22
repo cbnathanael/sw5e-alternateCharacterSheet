@@ -1,0 +1,632 @@
+@import "variables.less";
+
+.panel {
+    background: white;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.sw5e.sheet .window-content {
+    .openSans(12px);
+
+    input,
+    select {
+        height: 24px;
+        line-height: 20px;
+        padding: 1px 4px;
+        border: 1px solid transparent;
+
+        &:hover {
+            box-shadow: none;
+            border-color: @colorLightGray;
+        }
+
+        &:focus {
+            border-color: @colorRed;
+            box-shadow: none;
+        }
+    }
+
+    button {
+        font-family: 'Open Sans', sans-serif;
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            border-color: @colorRed;
+            box-shadow: none;
+        }
+    }
+}
+
+.sw5e.sheet.actor {
+
+    .swalt-sheet {
+        section>h1 {
+            .russoOne(16px);
+            color: @colorRed;
+            border-bottom: 2px solid @colorBlue;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        header {
+            display: grid;
+            grid-template-rows: 1fr 26px auto;
+            grid-template-columns: 128px 1fr;
+            column-gap: 8px;
+            row-gap: 8px;
+
+            img {
+                grid-column-start: 1;
+                grid-row-start: 1;
+                grid-row-end: 4;
+            }
+
+            h1.character-name {
+                grid-row: 1;
+                grid-column: 2;
+                margin: 0;
+                border: none;
+                align-self: center;
+                height: auto;
+
+                input[type="text"] {
+                    .russoOne(32px);
+                    color: @colorRed;
+                    text-transform: uppercase;
+                    height: auto;
+
+                    &:focus {
+                        text-transform: none;
+                    }
+                }
+            }
+
+            .level-experience {
+                grid-row: 1;
+                grid-column: 3;
+
+                .charlevel {
+                    .russoOne(16px);
+                    text-align: right;
+                }
+
+                .experience {
+                    .russoOne(16px);
+                    text-align: right;
+
+                    input {
+                        display: inline-block;
+                        width: 120px;
+                        text-align: right;
+                    }
+                }
+
+                .xpbar {
+                    border: 1px solid @colorGray;
+                    background-color: @colorPaleBlue;
+                    height: 8px;
+
+                    .bar {
+                        display: block;
+                        background-color: @colorBlue;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .summary {
+                grid-column-start: 2;
+                grid-row-start: 2;
+                grid-column-end: 4;
+                display: grid;
+                grid-template-rows: 1fr;
+                grid-template-columns: repeat(4, 1fr);
+
+                input,
+                .proficiency {
+                    display: inline;
+                    height: auto;
+                    .russoOne(16px);
+                    line-height: 24px;
+                    color: @colorGray;
+                }
+
+                .proficiency {
+                    line-height: 26px;
+                }
+            }
+
+            .attributes {
+                grid-column-start: 2;
+                grid-row-start: 3;
+                grid-column-end: 4;
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                column-gap: 12px;
+
+                .attribute-value,
+                .attribute-value input {
+                    .russoOne(22px);
+                    text-align: center;
+                    color: @colorGray;
+                    line-height: 1;
+
+                }
+
+                .attribute-value {
+                    input {
+                        display: inline-block;
+                    }
+
+                    .value-number {
+                        display: inline-block;
+                        width: 40px;
+                        text-align: right;
+
+                        padding: 0px 3px;
+
+                        &:last-child {
+                            text-align: left;
+                        }
+                    }
+
+                    span.value-number {
+                        padding: 1px 4px;
+                    }
+
+                    .value-separator {
+                        color: @colorLightGray;
+                    }
+
+                    .initiative {
+                        padding: 2px 4px;
+                        display: block;
+                    }
+                }
+
+                footer {
+
+
+                    button {
+                        background: none;
+                        padding: 1px 3px;
+                        font-size: inherit;
+                        line-height: inherit;
+                        border: 1px solid @colorPaleGray;
+                        display: inline-block;
+                        width: auto;
+
+                        &:hover {
+                            color: @colorRed;
+                            font-weight: 400;
+                        }
+                    }
+
+                    &.hit-points,
+                    &.hit-dice,
+                    &.initiative {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        column-gap: 8px;
+
+                        input,
+                        button {
+                            //border: 1px solid @colorPaleGray;
+                            width: 100%;
+                            text-align: center;
+                        }
+
+                        button {
+                            border: 1px solid @colorPaleGray;
+                        }
+
+                        span {
+                            display: block;
+                            padding: 2px 0;
+                        }
+                    }
+
+                    &.speed input {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        nav.sheet-navigation {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            column-gap: 16px;
+            margin: 4px 0;
+
+            .item {
+                background: none;
+                border: none;
+                border-bottom: 3px solid transparent;
+                border-radius: 0;
+                color: @colorGray;
+                margin: 0;
+                padding: 0 0 8px;
+                line-height: 1.6;
+                .russoOne(16px);
+
+                &.active {
+                    color: @colorRed;
+                    border-bottom-color: @colorRed;
+
+                    &:hover {
+                        background: rgba(@colorRed, 0.1);
+                    }
+                }
+
+                &:hover {
+                    background: rgba(@colorGray, 0.1);
+                }
+            }
+        }
+
+        .tab {
+            display: none;
+
+            &.active {
+                display: grid;
+            }
+        }
+
+        .tab.attributes {
+            grid-template-columns: 350px auto;
+            grid-template-rows: auto;
+            column-gap: 16px;
+            padding-bottom: 8px;
+
+            .abilities {
+                display: grid;
+                grid-template-columns: 128px auto;
+                grid-template-rows: auto;
+                column-gap: 12px;
+
+                ol {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .scores {
+                    li {
+                        border: 1px solid @colorPaleGray;
+                        border-radius: 0;
+                        border-bottom-width: 0;
+                        padding: 4px;
+
+                        &:first-child {
+                            border-radius: 4px 4px 0 0;
+                        }
+
+                        &:last-child {
+                            border-bottom-width: 1px;
+                            border-radius: 0 0 4px 4px;
+                        }
+
+                        h2 {
+                            .russoOne(14px);
+                            border: none;
+                            text-align: center;
+                            margin: 0;
+
+                            &:hover {
+                                color: @colorRed;
+                                text-shadow: none;
+                            }
+                        }
+
+                        .ability-score {
+                            .russoOne(22px);
+                            color: @colorGray;
+                            text-align: center;
+                            width: 48px;
+                            margin: 0 auto;
+                            height: 24px;
+                            display: block;
+                        }
+
+                        .ability-modifiers {
+                            margin: 0 -4px -4px;
+                            display: grid;
+                            grid-template-columns: 28px auto 28px;
+
+                            .ability-mod,
+                            .ability-save {
+                                border: solid @colorPaleGray;
+
+                                padding: 2px 4px;
+                                display: block;
+                                font-weight: bold;
+                                font-size: 13px;
+                                text-align: center;
+                            }
+
+                            .ability-mod {
+                                border-width: 1px 1px 0 0;
+                                border-radius: 0 4px 0 0;
+                            }
+
+                            .ability-save {
+                                border-width: 1px 0 0 1px;
+                                border-radius: 4px 0 0 0;
+                            }
+
+                            .proficiency-toggle {
+                                border: none;
+                                background: none;
+                                line-height: 1;
+                            }
+                        }
+
+                    }
+                }
+
+                .skills {
+                    li {
+                        display: grid;
+                        grid-template-columns: 28px auto 18px 28px;
+                        align-items: center;
+
+                        &:nth-child(even) {
+                            background-color: lighten(@colorPaleGray, 10);
+                        }
+
+                        .proficiency-toggle {
+                            border: none;
+                            background: none;
+                            height: 23px;
+                            line-height: 23px;
+                            padding: 0 4px;
+                        }
+
+                        .skill-name {
+                            &:hover {
+                                color: @colorRed;
+                                text-shadow: none;
+                            }
+                        }
+
+                        .skill-ability {
+                            text-transform: capitalize;
+                        }
+
+                        .skill-mod {
+                            text-align: right;
+                            padding-right: 4px;
+                        }
+                    }
+                }
+            }
+
+            .traits-resources {
+                nav {
+                    margin-bottom: 4px;
+
+                    button {
+                        display: inline-block;
+                        width: auto;
+                        background: none;
+                        border: none;
+                        border-bottom: 3px solid transparent;
+                        border-radius: 0;
+                        color: @colorGray;
+                        margin: 0;
+                        padding: 0 4px;
+                        line-height: 1.6;
+                        .russoOne(14px);
+
+                        &.active {
+                            color: @colorRed;
+                            border-bottom-color: @colorRed;
+
+                            &:hover {
+                                background: rgba(@colorRed, 0.1);
+                            }
+                        }
+
+                        &:hover {
+                            background: rgba(@colorGray, 0.1);
+                        }
+
+                        &+button {
+                            margin-left: 8px;
+                        }
+                    }
+                }
+
+                section.traits {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-gap: 16px;
+                    row-gap: 8px;
+
+                    input,
+                    select {
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                    }
+                    label {
+                        font-size: 13px;
+                    }
+                    .trait-selector {
+                        background: none;
+                        border: none;
+                        display: inline;
+                        width: auto;
+
+                        i.fas {
+                            color: @colorRed;
+                            float: none;
+
+                            &:hover {
+                                text-shadow: none;
+                            }
+                        }
+
+                    }
+
+                    .languages {
+                        grid-column-end: span 2;
+
+                        label {
+
+
+                            &:hover {
+                                color: @colorRed;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+
+                    .traits-list {
+                        li {
+                            display: inline;
+                            //font-size: 11px;
+
+                            &::after {
+                                content: ',';
+                            }
+
+                            &:last-child::after {
+                                content: '';
+                            }
+                        }
+                    }
+
+                    ul.passives {
+                        grid-column-end: span 2;
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        grid-gap: 4px;
+                        row-gap: 4px;
+                        strong {
+                            font-size: 13px;
+                            
+                        }
+                    }
+                }
+
+                section.resources {
+                    .resource-items {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        column-gap: 12px;
+
+                        .resource {
+
+                            h1 {
+                                font-family: 'Russo One';
+                                font-size: 16px;
+                                font-weight: 400;
+                                color: #c40f0f;
+                                border-bottom: 2px solid #0d99cc;
+                                text-align: center;
+                                margin-bottom: 4px;
+                            }
+
+                            .attribute-value,
+                            .attribute-value input {
+                                .russoOne(22px);
+                                text-align: center;
+                                color: @colorGray;
+                                line-height: 1;
+                            }
+
+                            .attribute-value {
+                                input {
+                                    display: inline-block;
+                                }
+
+                                .value-number {
+                                    display: inline-block;
+                                    width: 40px;
+                                    text-align: right;
+
+                                    padding: 0px 3px;
+
+                                    &:last-child {
+                                        text-align: left;
+                                    }
+                                }
+
+                                span.value-number {
+                                    padding: 1px 4px;
+                                }
+
+                                .value-separator {
+                                    color: @colorLightGray;
+                                }
+
+                            }
+                            .attribute-footer {
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+                                label {
+                                    text-align: center;
+                                }
+                                
+                            }
+                        }
+                    }
+                    .counters {
+                        border: none;
+                        margin-top: 16px;
+                        .counter {
+                        display: grid;
+                        grid-template-columns: 96px auto;
+                        height: 26px;
+                        margin-bottom: 8px;
+                        border: none;
+                        h4 {
+                            font-size: 13px;
+                            display: inline;
+                            &.rollable {
+                                &:hover {
+                                    text-shadow: none;
+                                    color: @colorRed;
+                                }
+                            }
+                        }
+                        .counter-value {
+                            display: inline;
+                            text-align: left;
+                        }
+                        input[type="text"] {
+                            display: inline-block;
+                            width: 10px;
+                        }
+                        input[type="checkbox"] {
+                            display: inline-block;
+                        }
+                        .death-success, .death-fail {
+                            display: inline-block;
+                            margin-right: 8px;
+                        }
+                        .death-success {
+                            i {
+                                color: #090;
+                            }
+                        }
+                        .death-fail {
+                            i {
+                                color: @colorRed;
+                            }
+                        }
+                    }
+                    }
+                }
+            }
+        }
+    }
+}
