@@ -43,11 +43,13 @@
 .sw5e.sheet.actor {
 
     .swalt-sheet {
+        display: grid;
+        grid-template-rows: 182px 40px auto;
         section>h1 {
             .russoOne(16px);
             color: @colorRed;
             border-bottom: 2px solid @colorBlue;
-            text-align: center;
+            text-align: left;
             margin-bottom: 4px;
         }
 
@@ -147,6 +149,10 @@
                 grid-template-columns: repeat(5, 1fr);
                 column-gap: 12px;
 
+                h1 {
+                    text-align: center;
+                }
+
                 .attribute-value,
                 .attribute-value input {
                     .russoOne(22px);
@@ -157,13 +163,22 @@
                 }
 
                 .attribute-value {
+
+                    &.multiple {
+                        display: grid;
+                        grid-template-columns: auto 14px auto;
+
+                        input {
+                            width: 100%;
+                        }
+                    }
+
                     input {
                         display: inline-block;
                     }
 
                     .value-number {
                         display: inline-block;
-                        width: 40px;
                         text-align: right;
 
                         padding: 0px 3px;
@@ -182,7 +197,7 @@
                     }
 
                     .initiative {
-                        padding: 2px 4px;
+                        padding: 1px 4px;
                         display: block;
                     }
                 }
@@ -225,7 +240,7 @@
 
                         span {
                             display: block;
-                            padding: 2px 0;
+                            padding: 3px 4px;
                         }
                     }
 
@@ -272,11 +287,87 @@
             display: none;
 
             &.active {
+                display: block;
+            }
+
+            .filter-list {
+                list-style: none;
+                margin: 0 0 4px;
+                padding: 0;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                max-width: 100%;
+                .filter-title {
+                    display: none;
+                    font-weight: bold;
+                    width: 50px;
+                }
+
+                .filter-item {
+                    border-bottom: 2px solid @colorLightGray;
+                    width: 100px;
+                    text-align: center;
+
+                    &+.filter-item {
+                        margin-left: 12px;
+                    }
+
+                    &:hover {
+                        color: @colorRed;
+                        text-shadow: none;
+                    }
+
+                    &.active {
+                        color: @colorRed;
+                        border-bottom-color: @colorRed;
+                    }
+                }
+            }
+            .group-list-header {
                 display: grid;
+                background: @colorPaleGray;
+                text-align: center;
+            }
+            .group-list-title {
+                display: grid;
+                border-bottom: 1px solid @colorBlue;
+                
+            }
+            .group-list, .group-list ol {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+
+                li.item {
+                    display: grid;
+                    .item-image {
+                        width: 30px;
+                        height: 30px;
+                        display: inline-block;
+                    }
+                    h4 {
+                        line-height: 30px;
+                        display: inline;
+                        margin: 0;
+                    }
+                }
+            }
+            
+            .group-grid-inventory {
+                grid-template-columns: auto 60px 70px 100px 100px;
+                &.group-list-title {
+                    .item-controls {
+                        grid-column-start: 5;
+                    }
+                }
             }
         }
 
         .tab.attributes {
+            &.active {
+                display: grid;
+            }
             grid-template-columns: 350px auto;
             grid-template-rows: auto;
             column-gap: 16px;
@@ -453,9 +544,11 @@
                         width: 100%;
                         text-align: left;
                     }
+
                     label {
                         font-size: 13px;
                     }
+
                     .trait-selector {
                         background: none;
                         border: none;
@@ -510,9 +603,10 @@
                         grid-template-columns: 1fr 1fr;
                         grid-gap: 4px;
                         row-gap: 4px;
+
                         strong {
                             font-size: 13px;
-                            
+
                         }
                     }
                 }
@@ -526,13 +620,19 @@
                         .resource {
 
                             h1 {
-                                font-family: 'Russo One';
-                                font-size: 16px;
-                                font-weight: 400;
-                                color: #c40f0f;
-                                border-bottom: 2px solid #0d99cc;
-                                text-align: center;
-                                margin-bottom: 4px;
+                                border: none;
+                                margin: 0;
+
+                                input {
+                                    font-family: 'Russo One';
+                                    font-size: 16px;
+                                    font-weight: 400;
+                                    color: #c40f0f;
+                                    border-bottom: 2px solid #0d99cc;
+                                    text-align: center;
+                                    margin-bottom: 4px;
+                                    border-radius: 0;
+                                }
                             }
 
                             .attribute-value,
@@ -544,13 +644,17 @@
                             }
 
                             .attribute-value {
+                                display: grid;
+                                grid-template-columns: auto 14px auto;
+
                                 input {
-                                    display: inline-block;
+                                    display: block;
+                                    width: 100%;
                                 }
 
                                 .value-number {
-                                    display: inline-block;
-                                    width: 40px;
+                                    display: block;
+                                    width: 100%;
                                     text-align: right;
 
                                     padding: 0px 3px;
@@ -569,61 +673,141 @@
                                 }
 
                             }
+
                             .attribute-footer {
                                 display: grid;
                                 grid-template-columns: 1fr 1fr;
+
                                 label {
                                     text-align: center;
                                 }
-                                
+
                             }
                         }
                     }
+
                     .counters {
                         border: none;
-                        margin-top: 16px;
-                        .counter {
+                        margin: 16px 0;
                         display: grid;
-                        grid-template-columns: 96px auto;
-                        height: 26px;
-                        margin-bottom: 8px;
-                        border: none;
-                        h4 {
-                            font-size: 13px;
-                            display: inline;
-                            &.rollable {
-                                &:hover {
-                                    text-shadow: none;
+                        grid-template-columns: repeat(3, 1fr);
+
+                        .counter {
+                            height: auto;
+                            border: none;
+                            text-align: center;
+
+                            h4 {
+                                font-size: 13px;
+
+                                //display: inline;
+                                &.rollable {
+                                    &:hover {
+                                        text-shadow: none;
+                                        color: @colorRed;
+                                    }
+                                }
+                            }
+
+                            .counter-value {
+                                display: inline;
+                                text-align: left;
+                            }
+
+                            input[type="text"] {
+                                display: inline-block;
+                                width: 10px;
+                            }
+
+                            input[type="checkbox"] {
+                                display: inline-block;
+                            }
+
+                            .death-success,
+                            .death-fail {
+                                display: inline-block;
+
+                            }
+
+                            .death-success {
+                                margin-right: 8px;
+
+                                i {
+                                    color: #090;
+                                }
+                            }
+
+                            .death-fail {
+                                i {
                                     color: @colorRed;
                                 }
                             }
                         }
-                        .counter-value {
-                            display: inline;
-                            text-align: left;
-                        }
-                        input[type="text"] {
-                            display: inline-block;
-                            width: 10px;
-                        }
-                        input[type="checkbox"] {
-                            display: inline-block;
-                        }
-                        .death-success, .death-fail {
-                            display: inline-block;
-                            margin-right: 8px;
-                        }
-                        .death-success {
-                            i {
-                                color: #090;
-                            }
-                        }
-                        .death-fail {
-                            i {
-                                color: @colorRed;
-                            }
-                        }
                     }
+                }
+            }
+        }
+
+        .tab.inventory {
+            & > .panel {
+                display: grid;
+                grid-template-rows: 24px 24px auto;
+                height: 100%;
+            }
+            .currency-encumbrance {
+                display: grid;
+                grid-template-columns: 200px auto;
+                margin-bottom: 8px;
+                align-items: center;
+            }
+
+            .currency {
+                .russoOne(13px);
+                color: @colorRed;
+
+                input {
+                    display: inline-block;
+                    width: 128px;
+                    .openSans(12px);
+                }
+            }
+
+            .encumbrance-wrapper {
+                display: grid;
+                grid-template-columns: 400px auto;
+                .encumbrance-label {
+                    font-size: 12px;
+                    line-height: 14px;
+                    width: 100%;
+                    background: @colorPaleGray;
+                    color: @colorBlack;
+                    text-shadow: none;
+                    padding: 0;
+                    margin: 0;
+                    height: auto;
+                    border: 1px solid @colorBlack;
+                    text-align: center;
+                    margin-left: -2px;
+                    border-radius: 0 4px 4px 0;
+                }
+
+                .encumbrance {
+                    position: relative;
+                    background: @colorPaleBlue;
+                    border-radius: 4px;
+                    height: 16px;
+                    margin: 0;
+                    width: 100%;
+
+                    .encumbrance-bar {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        background: linear-gradient(90deg, @colorBlue 0%, @colorBlue 50%, @colorRed 70%);
+                        background-attachment: fixed;
+                        border-radius: 4px;
+                        border: none;
                     }
                 }
             }

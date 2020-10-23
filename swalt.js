@@ -1,33 +1,36 @@
-import { SW5E } from "../../systems/sw5e/module/config.js";
+import {
+  SW5E
+} from "../../systems/sw5e/module/config.js";
 import ActorSheet5e from "../../systems/sw5e/module/actor/sheets/base.js";
 import ActorSheet5eCharacter from "../../systems/sw5e/module/actor/sheets/character.js";
 
 export class SwaltSheet extends ActorSheet5eCharacter {
   get template() {
-    if ( !game.user.isGM && this.actor.limited && game.settings.get("swalt", "useExpandedSheet")) return "modules/swalt/templates/expanded-limited-sheet.html";
-    if ( !game.user.isGM && this.actor.limited ) return "modules/swalt/templates/limited-sheet.html";
-    return "modules/swalt/templates/swalt-sheet.html";
+    if (!game.user.isGM && this.actor.limited && game.settings.get("swalt", "useExpandedSheet")) return "modules/SW5eCharacterSheetUpgrade/templates/expanded-limited-sheet.html";
+    if (!game.user.isGM && this.actor.limited) return "modules/SW5eCharacterSheetUpgrade/templates/limited-sheet.html";
+    return "modules/SW5eCharacterSheetUpgrade/templates/swalt-sheet.html";
   }
-  
+
   static get defaultOptions() {
 
     return mergeObject(super.defaultOptions, {
       classes: ["swalt", "sw5e", "sheet", "actor", "character"],
       blockFavTab: true,
       width: 800,
-      tabs: [
-        {navSelector: ".root-tabs", contentSelector: ".sheet-body", initial: "description"},
-        {navSelector: ".core-tabs", contentSelector: ".sheet-body", initial: "traits"}
-      ]
+      tabs: [{
+        navSelector: ".root-tabs",
+        contentSelector: ".sheet-body",
+        initial: "description"
+      }]
     });
   }
-  
+
   async _render(force = false, options = {}) {
     this.saveScrollPos();
     await super._render(force, options);
     this.setScrollPos();
   }
-  
+
   saveScrollPos() {
     if (this.form === null) return;
     const html = $(this.form);
@@ -36,25 +39,25 @@ export class SwaltSheet extends ActorSheet5eCharacter {
       left: html.scrollLeft()
     }
   }
-  
+
   setScrollPos() {
     if (this.form === null || this.scrollPos === undefined) return;
     const html = $(this.form);
     html.scrollTop(this.scrollPos.top);
     html.scrollLeft(this.scrollPos.left);
   }
-  
+
   _createEditor(target, editorOptions, initialContent) {
     editorOptions.min_height = 200;
     super._createEditor(target, editorOptions, initialContent);
   }
-  
+
   activateListeners(html) {
     super.activateListeners(html);
-    
+
     // Add Rollable CSS Class to Languages
     //html.find('[data-options="languages"]').parent().addClass("rollable");
-    
+
     // Send Languages to Chat onClick
     html.find('[data-options="share-languages"]').click(event => {
       event.preventDefault();
@@ -70,7 +73,7 @@ export class SwaltSheet extends ActorSheet5eCharacter {
           <div class="card-content">${langs}</div>
         </div>
       `;
-      
+
       // Send to Chat
       let rollWhisper = null;
       let rollBlind = false;
@@ -88,7 +91,7 @@ export class SwaltSheet extends ActorSheet5eCharacter {
         type: CONST.CHAT_MESSAGE_TYPES.OTHER
       });
     });
-    
+
     // Item Delete Confirmation
     html.find('.item-delete').off("click");
     html.find('.item-delete').click(event => {
@@ -114,6 +117,17 @@ export class SwaltSheet extends ActorSheet5eCharacter {
         default: 'cancel'
       }).render(true);
     });
+
+
+    //sub-tab switching
+    
+    html.find('[data-subgroup-selection]').children().on('click', event => {
+      let subgroup = event.target.closest('[data-subgroup]').getAttribute('data-subgroup');
+      let target = event.target.getAttribute('data-target');
+      html.find(`[data-subgroup=${subgroup}]`).removeClass('active');
+      html.find(`[data-subgroup=${subgroup}][data-target=${target}]`).addClass('active');
+    })
+    
   }
 }
 
@@ -125,24 +139,65 @@ async function addFavorites(app, html, data) {
   let favItems = [];
   let favFeats = [];
   let favPowers = {
-    0: { isCantrip: true, powers: [] },
-    1: { powers: [], value: data.actor.data.powers.power1.value, max: data.actor.data.powers.power1.max },
-    2: { powers: [], value: data.actor.data.powers.power2.value, max: data.actor.data.powers.power2.max },
-    3: { powers: [], value: data.actor.data.powers.power3.value, max: data.actor.data.powers.power3.max },
-    4: { powers: [], value: data.actor.data.powers.power4.value, max: data.actor.data.powers.power4.max },
-    5: { powers: [], value: data.actor.data.powers.power5.value, max: data.actor.data.powers.power5.max },
-    6: { powers: [], value: data.actor.data.powers.power6.value, max: data.actor.data.powers.power6.max },
-    7: { powers: [], value: data.actor.data.powers.power7.value, max: data.actor.data.powers.power7.max },
-    8: { powers: [], value: data.actor.data.powers.power8.value, max: data.actor.data.powers.power8.max },
-    9: { powers: [], value: data.actor.data.powers.power9.value, max: data.actor.data.powers.power9.max }
+    0: {
+      isCantrip: true,
+      powers: []
+    },
+    1: {
+      powers: [],
+      value: data.actor.data.powers.power1.value,
+      max: data.actor.data.powers.power1.max
+    },
+    2: {
+      powers: [],
+      value: data.actor.data.powers.power2.value,
+      max: data.actor.data.powers.power2.max
+    },
+    3: {
+      powers: [],
+      value: data.actor.data.powers.power3.value,
+      max: data.actor.data.powers.power3.max
+    },
+    4: {
+      powers: [],
+      value: data.actor.data.powers.power4.value,
+      max: data.actor.data.powers.power4.max
+    },
+    5: {
+      powers: [],
+      value: data.actor.data.powers.power5.value,
+      max: data.actor.data.powers.power5.max
+    },
+    6: {
+      powers: [],
+      value: data.actor.data.powers.power6.value,
+      max: data.actor.data.powers.power6.max
+    },
+    7: {
+      powers: [],
+      value: data.actor.data.powers.power7.value,
+      max: data.actor.data.powers.power7.max
+    },
+    8: {
+      powers: [],
+      value: data.actor.data.powers.power8.value,
+      max: data.actor.data.powers.power8.max
+    },
+    9: {
+      powers: [],
+      value: data.actor.data.powers.power9.value,
+      max: data.actor.data.powers.power9.max
+    }
   }
-  
+
   let powerCount = 0
   let items = data.actor.items;
   for (let item of items) {
     if (item.type == "class") continue;
     if (item.flags.favtab === undefined || item.flags.favtab.isFavourite === undefined) {
-      item.flags.favtab = { isFavourite: false };
+      item.flags.favtab = {
+        isFavourite: false
+      };
     }
     let isFav = item.flags.favtab.isFavourite;
     if (app.options.editable) {
@@ -154,7 +209,7 @@ async function addFavorites(app, html, data) {
       });
       html.find(`.item[data-item-id="${item._id}"]`).find('.item-controls').prepend(favBtn);
     }
-    
+
     if (isFav) {
       item.powerComps = "";
       if (item.data.components) {
@@ -168,53 +223,53 @@ async function addFavorites(app, html, data) {
         item.powerCon = c;
         item.powerRit = r;
       }
-      
+
       item.editable = app.options.editable;
       switch (item.type) {
-      case 'feat':
-        if (item.flags.favtab.sort === undefined) {
-          item.flags.favtab.sort = (favFeats.count + 1) * 100000; // initial sort key if not present
-        }
-        favFeats.push(item);
-        break;
-      case 'power':
-        if (item.data.preparation.mode) {
-          item.powerPrepMode = ` (${CONFIG.SW5E.powerPreparationModes[item.data.preparation.mode]})`
-        }
-        if (item.data.level) {
-          favPowers[item.data.level].powers.push(item);
-        } else {
-          favPowers[0].powers.push(item);
-        }
-        powerCount++;
-        break;
-      default:
-        if (item.flags.favtab.sort === undefined) {
-          item.flags.favtab.sort = (favItems.count + 1) * 100000; // initial sort key if not present
-        }
-        favItems.push(item);
-        break;
+        case 'feat':
+          if (item.flags.favtab.sort === undefined) {
+            item.flags.favtab.sort = (favFeats.count + 1) * 100000; // initial sort key if not present
+          }
+          favFeats.push(item);
+          break;
+        case 'power':
+          if (item.data.preparation.mode) {
+            item.powerPrepMode = ` (${CONFIG.SW5E.powerPreparationModes[item.data.preparation.mode]})`
+          }
+          if (item.data.level) {
+            favPowers[item.data.level].powers.push(item);
+          } else {
+            favPowers[0].powers.push(item);
+          }
+          powerCount++;
+          break;
+        default:
+          if (item.flags.favtab.sort === undefined) {
+            item.flags.favtab.sort = (favItems.count + 1) * 100000; // initial sort key if not present
+          }
+          favItems.push(item);
+          break;
       }
     }
   }
-  
+
   // Alter core CSS to fit new button
-  if (app.options.editable) {
-    html.find('.powerbook .item-controls').css('flex', '0 0 88px');
-    html.find('.inventory .item-controls, .features .item-controls').css('flex', '0 0 90px');
-    html.find('.favourite .item-controls').css('flex', '0 0 22px');
-  }
-  
+  // if (app.options.editable) {
+  //   html.find('.powerbook .item-controls').css('flex', '0 0 88px');
+  //   html.find('.inventory .item-controls, .features .item-controls').css('flex', '0 0 90px');
+  //   html.find('.favourite .item-controls').css('flex', '0 0 22px');
+  // }
+
   let tabContainer = html.find('.favtabtarget');
   data.favItems = favItems.length > 0 ? favItems.sort((a, b) => (a.flags.favtab.sort) - (b.flags.favtab.sort)) : false;
   data.favFeats = favFeats.length > 0 ? favFeats.sort((a, b) => (a.flags.favtab.sort) - (b.flags.favtab.sort)) : false;
   data.favPowers = powerCount > 0 ? favPowers : false;
   data.editable = app.options.editable;
-  
-  await loadTemplates(['modules/swalt/templates/item.hbs']);
-  let favtabHtml = $(await renderTemplate('modules/swalt/templates/template.hbs', data));
+
+  await loadTemplates(['modules/SW5eCharacterSheetUpgrade/templates/item.hbs']);
+  let favtabHtml = $(await renderTemplate('modules/SW5eCharacterSheetUpgrade/templates/template.hbs', data));
   favtabHtml.find('.item-name h4').click(event => app._onItemSummary(event));
-  
+
   if (app.options.editable) {
     favtabHtml.find('.item-image').click(ev => app._onItemRoll(ev));
     let handler = ev => app._onDragItemStart(ev);
@@ -235,12 +290,12 @@ async function addFavorites(app, html, data) {
         "flags.favtab.isFavourite": val
       });
     });
-    
+
     // Sorting
     favtabHtml.find('.item').on('drop', ev => {
       ev.preventDefault();
       ev.stopPropagation();
-      
+
       let dropData = JSON.parse(ev.originalEvent.dataTransfer.getData('text/plain'));
       // if (dropData.actorId !== app.actor.id || dropData.data.type === 'power') return;
       if (dropData.actorId !== app.actor.id) return;
@@ -251,7 +306,7 @@ async function addFavorites(app, html, data) {
       let siblings = list.filter(i => i._id !== dropData.data._id);
       let targetId = ev.target.closest('.item').dataset.itemId;
       let dragTarget = siblings.find(s => s._id === targetId);
-      
+
       if (dragTarget === undefined) return;
       const sortUpdates = SortingHelpers.performIntegerSort(dragSource, {
         target: dragTarget,
@@ -267,87 +322,89 @@ async function addFavorites(app, html, data) {
     });
   }
   tabContainer.append(favtabHtml);
-  try {
-    if (game.modules.get("betterrolls5e") && game.modules.get("betterrolls5e").active) BetterRolls.addItemContent(app.object, favtabHtml, ".item .item-name h4", ".item-properties", ".item > .rollable div");
-  } 
-  catch (err) {
-    // Better Rolls not found!
-  }
+
+  // try {
+  //   if (game.modules.get("betterrolls5e") && game.modules.get("betterrolls5e").active) BetterRolls.addItemContent(app.object, favtabHtml, ".item .item-name h4", ".item-properties", ".item > .rollable div");
+  // } 
+  // catch (err) {
+  //   // Better Rolls not found!
+  // }
   Hooks.callAll("renderedSwaltSheet", app, html, data);
 }
 
-async function injectPassives(app, html, data) {
-  let sentinel_shield = (data.actor.items.some( i => i.name.toLowerCase() === "sentinel shield" && i.data.equipped)) ? 5 : 0;
-  let passivesTarget = html.find('.core-traits .passives');
-  let passives = "";
-  let tagStyle = "text-align: center; min-width: unset; font-size: 13px;";
-  if (game.settings.get("swalt", "showPassiveInsight")) {
-    let passiveInsight = data.data.skills.ins.passive;
-    passives += `
-        <li>
-        <strong>Passive Insight</strong>
-        <span>${passiveInsight}</span>
-        </li>
-    `;
-  };
-  if (game.settings.get("swalt", "showPassiveInvestigation")) {
-    let passiveInvestigation = data.data.skills.inv.passive;
-    passives += `
-      <li>
-        <strong>Passive Investigation</strong>
-        <span>${passiveInvestigation}</span>
-        </li>
-    `;
-  };
-  if (game.settings.get("swalt", "showPassivePerception")) {
-    let actor = game.actors.entities.find(a => a.data._id === data.actor._id);
-    let passivePerception = data.data.skills.prc.passive;
-    passives += `
-      <li>
-        <strong>Passive Perception</strong>
-        <span>${passivePerception}</span>
-        </li>
-    `;
-  };
-  if (game.settings.get("swalt", "showPassiveStealth")) {
-    let passiveStealth = data.data.skills.ste.passive;
-    passives += `
-      <li>
-        <strong>Passive Stealth</strong>
-        <span>${passiveStealth}</span>
-        </li>
-    `;
-  };
-  passivesTarget.append(passives);
-}
+// async function injectPassives(app, html, data) {
+//   let sentinel_shield = (data.actor.items.some( i => i.name.toLowerCase() === "sentinel shield" && i.data.equipped)) ? 5 : 0;
+//   let passivesTarget = html.find('.core-traits .passives');
+//   let passives = "";
+//   let tagStyle = "text-align: center; min-width: unset; font-size: 13px;";
+//   if (game.settings.get("swalt", "showPassiveInsight")) {
+//     let passiveInsight = data.data.skills.ins.passive;
+//     passives += `
+//         <li>
+//         <strong>Passive Insight</strong>
+//         <span>${passiveInsight}</span>
+//         </li>
+//     `;
+//   };
+//   if (game.settings.get("swalt", "showPassiveInvestigation")) {
+//     let passiveInvestigation = data.data.skills.inv.passive;
+//     passives += `
+//       <li>
+//         <strong>Passive Investigation</strong>
+//         <span>${passiveInvestigation}</span>
+//         </li>
+//     `;
+//   };
+//   if (game.settings.get("swalt", "showPassivePerception")) {
+//     let actor = game.actors.entities.find(a => a.data._id === data.actor._id);
+//     let passivePerception = data.data.skills.prc.passive;
+//     passives += `
+//       <li>
+//         <strong>Passive Perception</strong>
+//         <span>${passivePerception}</span>
+//         </li>
+//     `;
+//   };
+//   if (game.settings.get("swalt", "showPassiveStealth")) {
+//     let passiveStealth = data.data.skills.ste.passive;
+//     passives += `
+//       <li>
+//         <strong>Passive Stealth</strong>
+//         <span>${passiveStealth}</span>
+//         </li>
+//     `;
+//   };
+//   passivesTarget.append(passives);
+// }
 
-async function makeBold(app, html, data) {
-  let items = data.actor.items;
-	let prepColor = (game.modules.get("luminous") !== undefined && game.modules.get("luminous").active === true) ? "rgba(55, 90, 160, 1)" : "#c53131";
-  for (let item of items) {
-    if (item.type == "power" && item.data.preparation.prepared) {
-      // console.log(`${item.name}: ${item.data.preparation.prepared}`); 
-      html.find(`.item[data-item-id="${item._id}"]`).find('h4').css({
-        'font-weight': 'bold',
-        'color': prepColor
-      });
-    }
-  }
-}
+// async function makeBold(app, html, data) {
+//   let items = data.actor.items;
+// 	let prepColor = (game.modules.get("luminous") !== undefined && game.modules.get("luminous").active === true) ? "rgba(55, 90, 160, 1)" : "#c53131";
+//   for (let item of items) {
+//     if (item.type == "power" && item.data.preparation.prepared) {
+//       // console.log(`${item.name}: ${item.data.preparation.prepared}`); 
+//       html.find(`.item[data-item-id="${item._id}"]`).find('h4').css({
+//         'font-weight': 'bold',
+//         'color': prepColor
+//       });
+//     }
+//   }
+// }
 
 async function migrateTraits(app, html, data) {
   let actor = game.actors.entities.find(a => a.data._id === data.actor._id);
   let actorVersion = (actor.data.flags.swalt && actor.data.flags.swalt.version) ? actor.data.flags.swalt.version : "unknown version";
   let moduleVersion = game.settings.get("swalt", "swaltVersion");
-  function compareVersions (a, b) {
+
+  function compareVersions(a, b) {
     var i, diff;
     var regExStrip0 = /(\.0+)+$/;
     var segmentsA = a.replace(regExStrip0, '').split('.');
     var segmentsB = b.replace(regExStrip0, '').split('.');
     var l = Math.min(segmentsA.length, segmentsB.length);
     for (i = 0; i < l; i++) {
-        diff = parseInt(segmentsA[i], 10) - parseInt(segmentsB[i], 10);
-        if (diff) return diff;
+      diff = parseInt(segmentsA[i], 10) - parseInt(segmentsB[i], 10);
+      if (diff) return diff;
     }
     return segmentsA.length - segmentsB.length;
   }
@@ -376,9 +433,9 @@ Actors.registerSheet("sw5e", SwaltSheet, {
 
 Hooks.on("renderSwaltSheet", (app, html, data) => {
   addFavorites(app, html, data);
-  injectPassives(app, html, data);
-  makeBold(app, html, data);
-	// if (app.inventoryPlus) app.inventoryPlus.addInventoryFunctions(html);
+  //injectPassives(app, html, data);
+  //makeBold(app, html, data);
+  // if (app.inventoryPlus) app.inventoryPlus.addInventoryFunctions(html);
   // migrateTraits(app, html, data);
 });
 
@@ -434,14 +491,15 @@ Hooks.once("ready", () => {
 });
 
 Hooks.once("init", () => {
-	const templatePaths = [
-		// Actor Sheet Partials
-		"modules/swalt/templates/parts/swalt-inventory.html",
-		"modules/swalt/templates/parts/swalt-features.html",
-    "modules/swalt/templates/parts/swalt-powerbook.html",
-    "modules/swalt/templates/parts/swalt-traits.html",
-    "modules/swalt/templates/parts/swalt-resources.html"
-	];
-	// Load the template parts
-	return loadTemplates(templatePaths);
+  const templatePaths = [
+    // Actor Sheet Partials
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-core.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-inventory.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-features.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-powerbook.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-traits.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-resources.html"
+  ];
+  // Load the template parts
+  return loadTemplates(templatePaths);
 });

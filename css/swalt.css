@@ -35,13 +35,17 @@
   border-color: #c40f0f;
   box-shadow: none;
 }
+.sw5e.sheet.actor .swalt-sheet {
+  display: grid;
+  grid-template-rows: 182px 40px auto;
+}
 .sw5e.sheet.actor .swalt-sheet section > h1 {
   font-family: 'Russo One';
   font-size: 16px;
   font-weight: 400;
   color: #c40f0f;
   border-bottom: 2px solid #0d99cc;
-  text-align: center;
+  text-align: left;
   margin-bottom: 4px;
 }
 .sw5e.sheet.actor .swalt-sheet header {
@@ -135,6 +139,9 @@
   grid-template-columns: repeat(5, 1fr);
   column-gap: 12px;
 }
+.sw5e.sheet.actor .swalt-sheet header .attributes h1 {
+  text-align: center;
+}
 .sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value,
 .sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value input {
   font-family: 'Russo One';
@@ -144,12 +151,18 @@
   color: #4f4f4f;
   line-height: 1;
 }
+.sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value.multiple {
+  display: grid;
+  grid-template-columns: auto 14px auto;
+}
+.sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value.multiple input {
+  width: 100%;
+}
 .sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value input {
   display: inline-block;
 }
 .sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value .value-number {
   display: inline-block;
-  width: 40px;
   text-align: right;
   padding: 0px 3px;
 }
@@ -163,7 +176,7 @@
   color: #828282;
 }
 .sw5e.sheet.actor .swalt-sheet header .attributes .attribute-value .initiative {
-  padding: 2px 4px;
+  padding: 1px 4px;
   display: block;
 }
 .sw5e.sheet.actor .swalt-sheet header .attributes footer button {
@@ -204,7 +217,7 @@
 .sw5e.sheet.actor .swalt-sheet header .attributes footer.hit-dice span,
 .sw5e.sheet.actor .swalt-sheet header .attributes footer.initiative span {
   display: block;
-  padding: 2px 0;
+  padding: 3px 4px;
 }
 .sw5e.sheet.actor .swalt-sheet header .attributes footer.speed input {
   text-align: center;
@@ -242,13 +255,83 @@
   display: none;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.active {
+  display: block;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .filter-list {
+  list-style: none;
+  margin: 0 0 4px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .filter-list .filter-title {
+  display: none;
+  font-weight: bold;
+  width: 50px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .filter-list .filter-item {
+  border-bottom: 2px solid #828282;
+  width: 100px;
+  text-align: center;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .filter-list .filter-item + .filter-item {
+  margin-left: 12px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .filter-list .filter-item:hover {
+  color: #c40f0f;
+  text-shadow: none;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .filter-list .filter-item.active {
+  color: #c40f0f;
+  border-bottom-color: #c40f0f;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list-header {
   display: grid;
+  background: #D6D6D6;
+  text-align: center;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list-title {
+  display: grid;
+  border-bottom: 1px solid #0d99cc;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list li.item,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol li.item {
+  display: grid;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list li.item .item-image,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol li.item .item-image {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list li.item h4,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol li.item h4 {
+  line-height: 30px;
+  display: inline;
+  margin: 0;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-inventory {
+  grid-template-columns: auto 60px 70px 100px 100px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-inventory.group-list-title .item-controls {
+  grid-column-start: 5;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes {
   grid-template-columns: 350px auto;
   grid-template-rows: auto;
   column-gap: 16px;
   padding-bottom: 8px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.attributes.active {
+  display: grid;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .abilities {
   display: grid;
@@ -444,6 +527,10 @@
   column-gap: 12px;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource h1 {
+  border: none;
+  margin: 0;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource h1 input {
   font-family: 'Russo One';
   font-size: 16px;
   font-weight: 400;
@@ -451,6 +538,7 @@
   border-bottom: 2px solid #0d99cc;
   text-align: center;
   margin-bottom: 4px;
+  border-radius: 0;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource .attribute-value,
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource .attribute-value input {
@@ -461,12 +549,17 @@
   color: #4f4f4f;
   line-height: 1;
 }
+.sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource .attribute-value {
+  display: grid;
+  grid-template-columns: auto 14px auto;
+}
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource .attribute-value input {
-  display: inline-block;
+  display: block;
+  width: 100%;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .resource-items .resource .attribute-value .value-number {
-  display: inline-block;
-  width: 40px;
+  display: block;
+  width: 100%;
   text-align: right;
   padding: 0px 3px;
 }
@@ -488,18 +581,17 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters {
   border: none;
-  margin-top: 16px;
+  margin: 16px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter {
-  display: grid;
-  grid-template-columns: 96px auto;
-  height: 26px;
-  margin-bottom: 8px;
+  height: auto;
   border: none;
+  text-align: center;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter h4 {
   font-size: 13px;
-  display: inline;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter h4.rollable:hover {
   text-shadow: none;
@@ -519,6 +611,8 @@
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter .death-success,
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter .death-fail {
   display: inline-block;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter .death-success {
   margin-right: 8px;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter .death-success i {
@@ -526,4 +620,65 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources section.resources .counters .counter .death-fail i {
   color: #c40f0f;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory > .panel {
+  display: grid;
+  grid-template-rows: 24px 24px auto;
+  height: 100%;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .currency-encumbrance {
+  display: grid;
+  grid-template-columns: 200px auto;
+  margin-bottom: 8px;
+  align-items: center;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .currency {
+  font-family: 'Russo One';
+  font-size: 13px;
+  font-weight: 400;
+  color: #c40f0f;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .currency input {
+  display: inline-block;
+  width: 128px;
+  font-family: 'Open Sans';
+  font-size: 12px;
+  font-weight: 400;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .encumbrance-wrapper {
+  display: grid;
+  grid-template-columns: 400px auto;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .encumbrance-wrapper .encumbrance-label {
+  font-size: 12px;
+  line-height: 14px;
+  width: 100%;
+  background: #D6D6D6;
+  color: #1C1C1C;
+  text-shadow: none;
+  padding: 0;
+  margin: 0;
+  height: auto;
+  border: 1px solid #1C1C1C;
+  text-align: center;
+  margin-left: -2px;
+  border-radius: 0 4px 4px 0;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .encumbrance-wrapper .encumbrance {
+  position: relative;
+  background: #afc6d6;
+  border-radius: 4px;
+  height: 16px;
+  margin: 0;
+  width: 100%;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.inventory .encumbrance-wrapper .encumbrance .encumbrance-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #0d99cc 0%, #0d99cc 50%, #c40f0f 70%);
+  background-attachment: fixed;
+  border-radius: 4px;
+  border: none;
 }
