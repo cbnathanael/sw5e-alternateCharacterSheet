@@ -16,12 +16,13 @@ export class SwaltSheet extends ActorSheet5eCharacter {
     return mergeObject(super.defaultOptions, {
       classes: ["swalt", "sw5e", "sheet", "actor", "character"],
       blockFavTab: true,
+      subTabs: null,
       width: 800,
       tabs: [{
         navSelector: ".root-tabs",
         contentSelector: ".sheet-body",
-        initial: "description"
-      }]
+        initial: "attributes"
+      }],
     });
   }
 
@@ -119,15 +120,8 @@ export class SwaltSheet extends ActorSheet5eCharacter {
     });
 
 
-    //sub-tab switching
     
-    html.find('[data-subgroup-selection]').children().on('click', event => {
-      let subgroup = event.target.closest('[data-subgroup]').getAttribute('data-subgroup');
-      let target = event.target.getAttribute('data-target');
-      html.find(`[data-subgroup=${subgroup}]`).removeClass('active');
-      html.find(`[data-subgroup=${subgroup}][data-target=${target}]`).addClass('active');
-    })
-    
+
   }
 }
 
@@ -201,7 +195,7 @@ async function addFavorites(app, html, data) {
     }
     let isFav = item.flags.favtab.isFavourite;
     if (app.options.editable) {
-      let favBtn = $(`<a class="item-control item-fav" data-fav="${isFav}" title="${isFav ? "Remove from Favourites" : "Add to Favourites"}"><i class="fas ${isFav ? "fa-star" : "fa-sign-in-alt"}"></i></a>`);
+      let favBtn = $(`<a class="item-control item-toggle item-fav ${isFav ? "active" : ""}" data-fav="${isFav}" title="${isFav ? "Remove from Favourites" : "Add to Favourites"}"><i class="fas fa-star"></i></a>`);
       favBtn.click(ev => {
         app.actor.getOwnedItem(item._id).update({
           "flags.favtab.isFavourite": !item.flags.favtab.isFavourite
@@ -331,7 +325,55 @@ async function addFavorites(app, html, data) {
   // }
   Hooks.callAll("renderedSwaltSheet", app, html, data);
 }
+async function addSubTabs(app, html, data) {
+  if(data.options.subTabs == null) {
+    //let subTabs = []; //{subgroup: '', target: '', active: false}
+    data.options.subTabs = {};
+    html.find('[data-subgroup-selection] [data-subgroup]').each((idx, el) => {
+      let subgroup = el.getAttribute('data-subgroup');
+      let target = el.getAttribute('data-target');
+      let targetObj = {target: target, active: el.classList.contains("active")}
+      if(data.options.subTabs.hasOwnProperty(subgroup)) {
+        data.options.subTabs[subgroup].push(targetObj);
+      } else {
+        data.options.subTabs[subgroup] = [];
+        data.options.subTabs[subgroup].push(targetObj);
+      }
+    })
+  } 
 
+  for(const group in data.options.subTabs) {
+    data.options.subTabs[group].forEach(tab => {
+      if(tab.active) {
+        html.find(`[data-subgroup=${group}][data-target=${tab.target}]`).addClass('active');
+      } else {
+        html.find(`[data-subgroup=${group}][data-target=${tab.target}]`).removeClass('active');
+      }
+    })
+  }
+
+  html.find('[data-subgroup-selection]').children().on('click', event => {
+    let subgroup = event.target.closest('[data-subgroup]').getAttribute('data-subgroup');
+    let target = event.target.closest('[data-target]').getAttribute('data-target');
+    html.find(`[data-subgroup=${subgroup}]`).removeClass('active');
+    html.find(`[data-subgroup=${subgroup}][data-target=${target}]`).addClass('active');
+    let tabId = data.options.subTabs[subgroup].find(tab => {
+      return tab.target == target
+    });
+    data.options.subTabs[subgroup].map(el => {
+      if(el.target == target) {
+        el.active = true;
+      } else {
+        el.active = false; 
+      }
+      return el;
+    })
+    
+ })
+
+
+
+}
 // async function injectPassives(app, html, data) {
 //   let sentinel_shield = (data.actor.items.some( i => i.name.toLowerCase() === "sentinel shield" && i.data.equipped)) ? 5 : 0;
 //   let passivesTarget = html.find('.core-traits .passives');
@@ -433,6 +475,7 @@ Actors.registerSheet("sw5e", SwaltSheet, {
 
 Hooks.on("renderSwaltSheet", (app, html, data) => {
   addFavorites(app, html, data);
+  addSubTabs(app, html, data);
   //injectPassives(app, html, data);
   //makeBold(app, html, data);
   // if (app.inventoryPlus) app.inventoryPlus.addInventoryFunctions(html);
