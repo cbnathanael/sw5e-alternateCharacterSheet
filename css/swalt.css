@@ -311,6 +311,9 @@
 .sw5e.sheet.actor .swalt-sheet .tab .group-list-title .item-create {
   font-size: 12px;
 }
+.sw5e.sheet.actor .swalt-sheet .tab .group-list-title .item-create i {
+  font-size: 10px;
+}
 .sw5e.sheet.actor .swalt-sheet .tab .group-list-title .item-create:hover {
   color: #c40f0f;
   text-shadow: none;
@@ -358,6 +361,7 @@
   width: 30px;
   height: 30px;
   position: relative;
+  background-size: contain;
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-list li.item .item-name .item-image::before,
 .sw5e.sheet.actor .swalt-sheet .tab .group-list ol li.item .item-name .item-image::before {
@@ -430,6 +434,21 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-grid-inventory.group-list-title .item-controls {
   grid-column-start: 5;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-features {
+  grid-template-columns: auto 100px 100px 100px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-features.group-list-title {
+  display: grid;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-features .item-controls {
+  grid-column-start: 4;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-features .item-uses input {
+  display: inline-block;
+  width: 32px;
+  margin-right: 8px;
+  text-align: right;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes {
   grid-template-columns: 350px auto;
@@ -735,6 +754,7 @@
   height: 100%;
   overflow: hidden;
   display: grid;
+  grid-template-rows: 32px 32px 24px auto;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.inventory .currency-encumbrance {
   display: grid;
@@ -792,4 +812,10 @@
   background: #0d99cc;
   border-radius: 4px;
   border: none;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.features > .panel {
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 24px auto;
 }

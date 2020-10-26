@@ -543,6 +543,7 @@ Hooks.once("init", () => {
     "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-traits.html",
     "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-resources.html"
   ];
+
   // Load the template parts
   return loadTemplates(templatePaths);
 });

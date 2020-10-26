@@ -347,7 +347,9 @@
 
                 .item-create {
                     font-size: 12px;
-
+                    i {
+                        font-size: 10px;
+                    }
                     &:hover {
                         color: @colorRed;
                         text-shadow: none;
@@ -399,7 +401,7 @@
                             width: 30px;
                             height: 30px;
                             position: relative;
-
+                            background-size: contain;
                             &::before {
                                 font-family: "Font Awesome 5 Free";
                                 font-weight: 900;
@@ -479,6 +481,23 @@
                 &.group-list-title {
                     .item-controls {
                         grid-column-start: 5;
+                    }
+                }
+            }
+            .group-grid-features {
+                grid-template-columns: auto 100px 100px 100px;
+                &.group-list-title {
+                    display: grid;
+                }
+                .item-controls {
+                    grid-column-start: 4;
+                }
+                .item-uses {
+                    input {
+                        display: inline-block;
+                        width: 32px;
+                        margin-right: 8px;
+                        text-align: right;
                     }
                 }
             }
@@ -877,6 +896,7 @@
                 height: 100%;
                 overflow: hidden;
                 display: grid;
+                grid-template-rows: 32px 32px 24px auto;
             }
 
             .currency-encumbrance {
@@ -939,6 +959,14 @@
                         border: none;
                     }
                 }
+            }
+        }
+        .tab.features {
+            &>.panel {
+                height: 100%;
+                overflow: hidden;
+                display: grid;
+                grid-template-rows: 24px auto;
             }
         }
     }
