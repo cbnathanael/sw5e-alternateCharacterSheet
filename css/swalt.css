@@ -70,6 +70,11 @@
   margin: 0;
   border: none;
   align-self: center;
+  font-family: 'Russo One';
+  font-size: 32px;
+  font-weight: 400;
+  color: #c40f0f;
+  text-transform: uppercase;
   height: auto;
 }
 .sw5e.sheet.actor .swalt-sheet header h1.character-name input[type="text"] {
@@ -611,6 +616,9 @@
   text-align: right;
   padding-right: 4px;
 }
+.sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources {
+  grid-template-rows: 32px auto;
+}
 .sw5e.sheet.actor .swalt-sheet .tab.attributes .traits-resources nav {
   margin-bottom: 4px;
 }
@@ -921,4 +929,14 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab.notes section .editor .editor-edit {
   top: 3px;
+}
+.sw5e.sheet.actor .swalt-sheet.limited {
+  grid-template-rows: 144px auto;
+  row-gap: 8px;
+}
+.sw5e.sheet.actor .swalt-sheet.limited header {
+  grid-template-rows: 1fr;
+}
+.sw5e.sheet.actor .swalt-sheet.limited .tab.biography {
+  grid-template-columns: 100%;
 }

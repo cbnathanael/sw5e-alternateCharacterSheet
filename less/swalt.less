@@ -48,7 +48,7 @@
     .swalt-sheet {
         display: grid;
         grid-template-rows: 182px 40px auto;
-
+        
         section>h1 {
             .russoOne(16px);
             color: @colorRed;
@@ -76,6 +76,11 @@
                 margin: 0;
                 border: none;
                 align-self: center;
+                height: auto;
+
+                .russoOne(32px);
+                color: @colorRed;
+                text-transform: uppercase;
                 height: auto;
 
                 input[type="text"] {
@@ -690,6 +695,7 @@
             }
 
             .traits-resources {
+                grid-template-rows: 32px auto;
                 nav {
                     margin-bottom: 4px;
 
@@ -1069,6 +1075,17 @@
                 .editor .editor-edit {
                     top: 3px;
                 }
+            }
+        }
+        &.limited {
+            grid-template-rows: 144px auto;
+            row-gap: 8px;
+            header {
+                grid-template-rows: 1fr;
+            }
+
+            .tab.biography {
+                grid-template-columns: 100%;
             }
         }
     }

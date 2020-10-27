@@ -1,23 +1,26 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}} swalt-sheet limited" autocomplete="off">
 	<!-- HEADER -->
-	<header class="sheet-header">
-		<img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
-		<h1 class="charname">
-			<input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'SW5E.Name' }}"/>
+	<header class="panel">
+		<img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+		<h1 class="character-name">
+			{{actor.name}}
 		</h1>
 	</header>
 
 	<!-- BODY -->
 	<section class="sheet-body">
-		<div class="tab biography flexrow">
-			<div class="additional-info">
-				<div class="section-titles">Description</div>
-				{{editor content=data.details.description.value target="data.details.description.value" button=true owner=owner editable=editable}}
+		<div class="tab biography active">
+			<div class="panel">
+				<section class="additional-info">
+					<h1 class="section-titles">Description</h1>
+					{{editor content=data.details.description.value target="data.details.description.value" button=true owner=owner editable=editable}}
+				</section>
+				<section>
+					<h1 class="section-titles">Background</h1>
+					{{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+				</section>
 			</div>
-			<div>
-				<div class="section-titles">Background</div>
-				{{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
-			</div>
+			
 		</div>
 	</section>
 </form>
