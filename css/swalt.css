@@ -847,7 +847,7 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 2fr 1fr 1fr;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability label,
 .sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability h3 {
