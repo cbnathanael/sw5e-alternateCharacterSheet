@@ -256,6 +256,29 @@
 .sw5e.sheet.actor .swalt-sheet nav.sheet-navigation .item:hover {
   background: rgba(79, 79, 79, 0.1);
 }
+.sw5e.sheet.actor .swalt-sheet .editor {
+  position: static;
+  min-height: 32px;
+  padding: 0;
+}
+.sw5e.sheet.actor .swalt-sheet .editor .editor-edit {
+  display: block;
+  font-size: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  color: #c40f0f;
+  top: 0;
+  right: 0;
+}
+.sw5e.sheet.actor .swalt-sheet .editor .editor-edit:hover {
+  color: #c40f0f;
+  text-shadow: none;
+}
+.sw5e.sheet.actor .swalt-sheet .editor .tox.tox-tinymce {
+  height: 250px !important;
+}
 .sw5e.sheet.actor .swalt-sheet .tab {
   display: none;
 }
@@ -862,4 +885,40 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability .power-dc {
   grid-column-start: 3;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.biography {
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 100%;
+  column-gap: 16px;
+  padding-bottom: 8px;
+  max-width: 100%;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.biography.active {
+  display: grid;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.biography > .panel {
+  display: block;
+  overflow-y: auto;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.biography section {
+  position: relative;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.notes > .panel {
+  display: block;
+  overflow-y: auto;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.notes section {
+  position: relative;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.notes section > input {
+  font-family: 'Russo One';
+  font-size: 16px;
+  font-weight: 400;
+  color: #c40f0f;
+  border-bottom: 2px solid #0d99cc;
+  text-align: left;
+  margin-bottom: 4px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.notes section .editor .editor-edit {
+  top: 3px;
 }

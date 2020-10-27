@@ -541,7 +541,9 @@ Hooks.once("init", () => {
     "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-features.html",
     "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-powerbook.html",
     "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-traits.html",
-    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-resources.html"
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-resources.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-biography.html",
+    "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-notes.html"
   ];
 
   // Load the template parts

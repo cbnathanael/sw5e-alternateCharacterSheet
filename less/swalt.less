@@ -286,7 +286,29 @@
                 }
             }
         }
-
+        .editor {
+            position: static;
+            min-height: 32px;
+            padding: 0;
+            .editor-edit {
+                display: block;
+                font-size: 12px;
+                background: none;
+                border: none;
+                padding: 0;
+                box-shadow: none;
+                color: @colorRed;
+                top: 0;
+                right: 0;
+                &:hover {
+                    color: @colorRed;
+                    text-shadow: none;
+                }
+            }
+            .tox.tox-tinymce {
+                height: 250px !important;
+            }
+        }
         .tab {
             display: none;
 
@@ -1009,6 +1031,43 @@
                 }
                 .power-dc {
                     grid-column-start: 3;
+                }
+            }
+        }
+        .tab.biography {
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 100%;
+            column-gap: 16px;
+            padding-bottom: 8px;
+            max-width: 100%;
+            &.active {
+                display: grid;
+            }
+            &>.panel {
+                display: block;
+                overflow-y: auto;
+            }
+            section {
+                position: relative;
+            }
+            
+        }
+        .tab.notes {
+            &>.panel {
+                display: block;
+                overflow-y: auto;
+            }
+            section {
+                position: relative;
+                &>input {
+                    .russoOne(16px);
+                    color: @colorRed;
+                    border-bottom: 2px solid @colorBlue;
+                    text-align: left;
+                    margin-bottom: 4px;
+                }
+                .editor .editor-edit {
+                    top: 3px;
                 }
             }
         }

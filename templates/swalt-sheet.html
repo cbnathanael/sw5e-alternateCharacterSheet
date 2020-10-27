@@ -135,54 +135,10 @@
 		</section>
 		{{!-- Biography Tab --}}
 		<section class="tab biography" data-group="primary" data-tab="biography">
-			<div class="additional-info">
-				<div class="section-titles biopage">Description</div>
-				{{editor content=data.details.description.value target="data.details.description.value" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">Personality Traits</div>
-				{{editor content=data.details.trait target="data.details.trait" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">Ideals</div>
-				{{editor content=data.details.ideal target="data.details.ideal" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">Bonds</div>
-				{{editor content=data.details.bond target="data.details.bond" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">flaws</div>
-				{{editor content=data.details.flaw target="data.details.flaw" button=true owner=owner editable=editable}}
-			</div>
-			<div class="background">
-				<div class="section-titles">Background</div>
-				{{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
-			</div>
+			{{> "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-biography.html"}}
 		</section>
 		{{!-- Notes Tab --}}
-		<section class="tab biography" data-group="primary" data-tab="notes">
-			<div class="background">
-				<div class="section-titles">
-					<input type="text" name="data.details.notesname" value="{{data.details.notesname}}"
-						placeholder="Personal Journal" />
-				</div>
-				{{editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
-			</div>
-			<div class="additional-notes">
-				<div class="section-titles biopage">
-					<input type="text" name="data.details.notes1name" value="{{data.details.notes1name}}"
-						placeholder="Additional Notes" />
-				</div>
-				{{editor content=data.details.notes1.value target="data.details.notes1.value" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">
-					<input type="text" name="data.details.notes2name" value="{{data.details.notes2name}}"
-						placeholder="Additional Notes" />
-				</div>
-				{{editor content=data.details.notes2.value target="data.details.notes2.value" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">
-					<input type="text" name="data.details.notes3name" value="{{data.details.notes3name}}"
-						placeholder="Additional Notes" />
-				</div>
-				{{editor content=data.details.notes3.value target="data.details.notes3.value" button=true owner=owner editable=editable}}
-				<div class="section-titles biopage">
-					<input type="text" name="data.details.notes4name" value="{{data.details.notes4name}}"
-						placeholder="Additional Notes" />
-				</div>
-				{{editor content=data.details.notes4.value target="data.details.notes4.value" button=true owner=owner editable=editable}}
-			</div>
-		</section>
+		<section class="tab notes" data-group="primary" data-tab="notes">
+			{{> "modules/SW5eCharacterSheetUpgrade/templates/parts/swalt-notes.html"}}
 	</section>
 </form>
