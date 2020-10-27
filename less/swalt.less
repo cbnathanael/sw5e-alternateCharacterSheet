@@ -381,6 +381,24 @@
                 margin: 0 0 8px;
                 padding: 0;
 
+                .item-uses {
+                    input {
+                        display: inline-block;
+                        width: 32px;
+                        margin-right: 8px;
+                        text-align: right;
+                    }
+                    span {
+                        padding-left: 8px;
+                    }
+                    .slot-max-override {
+                        margin-left: 8px;
+                        &:hover {
+                        text-shadow: none;
+                        color: @colorRed;
+                        }
+                    }
+                }
                 li.item {
                     display: grid;
 
@@ -472,6 +490,7 @@
                             }
                         }
                     }
+                    
                 }
             }
 
@@ -492,16 +511,27 @@
                 .item-controls {
                     grid-column-start: 4;
                 }
-                .item-uses {
-                    input {
-                        display: inline-block;
-                        width: 32px;
-                        margin-right: 8px;
-                        text-align: right;
+                
+            }
+            .group-grid-powers {
+                grid-template-columns: auto repeat(5, 100px);
+                &.group-list-title {
+                    display: grid;
+                    align-items: end;
+                    .item-detail {
+                        padding: 0 4px;
                     }
                 }
+               
+                
             }
             
+        }
+
+        .tab > .panel {
+            height: 100%;
+            overflow: hidden;
+            display: grid;
         }
 
         .tab.attributes {
@@ -893,9 +923,6 @@
 
         .tab.inventory {
             &>.panel {
-                height: 100%;
-                overflow: hidden;
-                display: grid;
                 grid-template-rows: 32px 32px 24px auto;
             }
 
@@ -907,7 +934,7 @@
             }
 
             .currency {
-                .russoOne(13px);
+                .russoOne(14px);
                 color: @colorRed;
 
                 input {
@@ -963,10 +990,26 @@
         }
         .tab.features {
             &>.panel {
-                height: 100%;
-                overflow: hidden;
-                display: grid;
                 grid-template-rows: 24px auto;
+            }
+        }
+        .tab.powerbook {
+            &>.panel {
+                grid-template-rows: 32px 24px 24px auto;
+            }
+            .powercasting-ability {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                label, h3 {
+                    .russoOne(14px);
+                    color: @colorRed;
+                    span {
+                        color: @colorBlack;
+                    }
+                }
+                .power-dc {
+                    grid-column-start: 3;
+                }
             }
         }
     }

@@ -337,6 +337,26 @@
   margin: 0 0 8px;
   padding: 0;
 }
+.sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses input,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses input {
+  display: inline-block;
+  width: 32px;
+  margin-right: 8px;
+  text-align: right;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses span,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses span {
+  padding-left: 8px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses .slot-max-override,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses .slot-max-override {
+  margin-left: 8px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses .slot-max-override:hover,
+.sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses .slot-max-override:hover {
+  text-shadow: none;
+  color: #c40f0f;
+}
 .sw5e.sheet.actor .swalt-sheet .tab .group-list li.item,
 .sw5e.sheet.actor .swalt-sheet .tab .group-list ol li.item {
   display: grid;
@@ -444,11 +464,20 @@
 .sw5e.sheet.actor .swalt-sheet .tab .group-grid-features .item-controls {
   grid-column-start: 4;
 }
-.sw5e.sheet.actor .swalt-sheet .tab .group-grid-features .item-uses input {
-  display: inline-block;
-  width: 32px;
-  margin-right: 8px;
-  text-align: right;
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-powers {
+  grid-template-columns: auto repeat(5, 100px);
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-powers.group-list-title {
+  display: grid;
+  align-items: end;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-powers.group-list-title .item-detail {
+  padding: 0 4px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab > .panel {
+  height: 100%;
+  overflow: hidden;
+  display: grid;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.attributes {
   grid-template-columns: 350px auto;
@@ -751,9 +780,6 @@
   color: #c40f0f;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.inventory > .panel {
-  height: 100%;
-  overflow: hidden;
-  display: grid;
   grid-template-rows: 32px 32px 24px auto;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.inventory .currency-encumbrance {
@@ -764,7 +790,7 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab.inventory .currency {
   font-family: 'Russo One';
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 400;
   color: #c40f0f;
 }
@@ -814,8 +840,26 @@
   border: none;
 }
 .sw5e.sheet.actor .swalt-sheet .tab.features > .panel {
-  height: 100%;
-  overflow: hidden;
-  display: grid;
   grid-template-rows: 24px auto;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook > .panel {
+  grid-template-rows: 32px 24px 24px auto;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability label,
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability h3 {
+  font-family: 'Russo One';
+  font-size: 14px;
+  font-weight: 400;
+  color: #c40f0f;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability label span,
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability h3 span {
+  color: #1C1C1C;
+}
+.sw5e.sheet.actor .swalt-sheet .tab.powerbook .powercasting-ability .power-dc {
+  grid-column-start: 3;
 }
