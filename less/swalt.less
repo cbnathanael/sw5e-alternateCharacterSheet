@@ -412,14 +412,14 @@
                     input {
                         display: inline-block;
                         width: 32px;
-                        margin-right: 8px;
+                        margin-right: 0;
                         text-align: right;
                     }
                     span {
                         padding-left: 8px;
                     }
                     .slot-max-override {
-                        margin-left: 8px;
+                        margin-left: 5px;
                         &:hover {
                         text-shadow: none;
                         color: @colorRed;
@@ -522,7 +522,7 @@
             }
 
             .group-grid-inventory {
-                grid-template-columns: auto 60px 70px 100px 100px;
+                grid-template-columns: auto 60px 100px 100px 100px;
 
                 &.group-list-title {
                     .item-controls {
@@ -551,6 +551,16 @@
                 }
                
                 
+            }
+            .group-grid-fav-items {
+                grid-template-columns: auto 60px 30px 30px 50px;
+                &.group-list-title {
+                    display: grid;
+                    align-items: end;
+                    .item-detail {
+                        padding: 0 4px;
+                    }
+                }
             }
             
         }

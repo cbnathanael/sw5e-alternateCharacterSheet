@@ -369,7 +369,7 @@
 .sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses input {
   display: inline-block;
   width: 32px;
-  margin-right: 8px;
+  margin-right: 0;
   text-align: right;
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses span,
@@ -378,7 +378,7 @@
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses .slot-max-override,
 .sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses .slot-max-override {
-  margin-left: 8px;
+  margin-left: 5px;
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-list .item-uses .slot-max-override:hover,
 .sw5e.sheet.actor .swalt-sheet .tab .group-list ol .item-uses .slot-max-override:hover {
@@ -478,7 +478,7 @@
   color: #1C1C1C;
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-grid-inventory {
-  grid-template-columns: auto 60px 70px 100px 100px;
+  grid-template-columns: auto 60px 100px 100px 100px;
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-grid-inventory.group-list-title .item-controls {
   grid-column-start: 5;
@@ -500,6 +500,16 @@
   align-items: end;
 }
 .sw5e.sheet.actor .swalt-sheet .tab .group-grid-powers.group-list-title .item-detail {
+  padding: 0 4px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-fav-items {
+  grid-template-columns: auto 60px 30px 30px 50px;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-fav-items.group-list-title {
+  display: grid;
+  align-items: end;
+}
+.sw5e.sheet.actor .swalt-sheet .tab .group-grid-fav-items.group-list-title .item-detail {
   padding: 0 4px;
 }
 .sw5e.sheet.actor .swalt-sheet .tab > .panel {
